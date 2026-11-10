@@ -1,0 +1,25 @@
+name: Wildfire KBDI research-code tests
+on:
+  push:
+    paths:
+      - 'wildfire-kbdi-analysis/**'
+      - '.github/workflows/wildfire-kbdi-tests.yml'
+  pull_request:
+    paths:
+      - 'wildfire-kbdi-analysis/**'
+      - '.github/workflows/wildfire-kbdi-tests.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: wildfire-kbdi-analysis
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install -r requirements-ci.txt
+      - name: Unit and synthetic tests
+        run: PYTHONPATH=src pytest -q tests
