@@ -1,6 +1,8 @@
 """Portable XLSX parser test with a synthetic workbook; no user data."""
 from pathlib import Path
 from zipfile import ZipFile
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src" / "statistics"))
 from xlsx_reader import col_index,read_xlsx_grid
 
 def test_xlsx_reader_standard_library(tmp_path):
